@@ -1,0 +1,26 @@
+![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
+
+# Lab | Database normalization
+
+### Instructions
+
+1. Use [dbdiagram.io](https://dbdiagram.io/home) or [draw.io](https://draw.io) to propose a new structure for the `Sakila` database.
+2. Define primary keys and foreign keys for the new database.
+
+![Sakila database](https://education-team-2020.s3-eu-west-1.amazonaws.com/data-analytics/3.4-lab-sakila-normalization.png)
+
+
+1) The table film_text is deleted. Table "film_text" had the columns "film_id", "title" and "description"; all of them already unique values per every film_id in the 
+"Film" table. Therefore, it already falls into the 1NF category.
+
+2) During class exercises/labs, we created the table "rentals_may". That table is not related to any other table in the database, and can also be dropped. Same goes for rentals_june.
+
+3) The "film_language" table is created so that the "film" table reaches a 2NF and 3NF-BCNF. Same applies for the films2020 table (created during the labs).
+3NF/BCNF: We should be able to change any of the columns without having to change anything else.
+	3a) The column "language" is deleted. Instead, the table "film_language" is used to relate films to the available languages.
+	3b) The column "original_language" is kept in the table "film". This is because there is a unique value of "original_language" per entry in "film", a foreign key from the "language" table.
+
+4) The rental rates in the "film" table are not normalised. They should be part of an external table, where they could be adapted without modifying the entry for the film. To that end,
+I created the table "rental_tier", relating it as foreign key in the "film" table (rental_tier_id).
+
+5) The same logic as in 4) is followed for the column "replacement_cost" from the table "film". An external table "replacement_cost" is created.
